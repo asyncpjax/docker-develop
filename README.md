@@ -703,7 +703,7 @@ docker-compose cp php83:/usr/local/etc/php-fpm.d/www.conf ~/docker-develop/php83
 
     - root 我们知道是要配置 laravel 项目的路径，但现在 nginx 和 php 是分属在两个容器里面，问题来了。
 
-        - 我只知道本地路径是在 `~/docker-develop/www/laravel` 里，不知道容器里面项目路径在哪里。
+        - 我只知道本地路径是在 `~/docker-develop/www/laravel-app` 里，不知道容器里面项目路径在哪里。
         - 两个容器怎样才能相互访问代码文件？
 
         这个时候我们需要修改 php 的 Dockerfile 以及 docker-compose.yml 了
@@ -775,13 +775,13 @@ docker-compose cp php83:/usr/local/etc/php-fpm.d/www.conf ~/docker-develop/php83
 
     重新构建后，还要执行 compose install，同样的也可以进入容器手动执行。
 
-    `docker-compose run php83 sh -c 'cd /www/laravel-app && composer install -vvv'`
+    `docker-compose run php83 sh -c "cd /www/laravel-app && composer install -vvv"`
 
     跑一下 Laravel 基础配置，脚本在项目下的 composer.json 中定义的
 
-    `docker-compose run php83 sh -c 'cd /www/laravel-app && composer run-script post-root-package-install'`
+    `docker-compose run php83 sh -c "cd /www/laravel-app && composer run-script post-root-package-install"`
 
-    `docker-compose run php83 sh -c 'cd /www/laravel-app && composer run-script post-create-project-cmd`
+    `docker-compose run php83 sh -c "cd /www/laravel-app && composer run-script post-create-project-cmd"`
 
 6. 再测一下
 
